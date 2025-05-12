@@ -1,0 +1,51 @@
+@if (product) {
+    <div class="product-detail">
+      <img [src]="product.images" alt="{{ product.title }}">
+      <h2>{{ product.title }}</h2>
+      <p>Price: {{ product.price.beforeDiscount }}$</p>
+      <p>Data: {{ product.releaseDate }}</p>
+      <p>Brand: {{ product.brand }}</p>
+      <p>Stock: {{ product.stock }}</p>
+      <button (click)="addToCart()">Add to cart</button>
+      <button (click)="openReviewModal()">Rate</button>
+  
+      <div class="tabs">
+        <button [class.active]="activeTab === 'details'" (click)="switchTab('details')">Details</button>
+        <button [class.active]="activeTab === 'reviews'" (click)="switchTab('reviews')">Reviews</button>
+      </div>
+  
+      @if (activeTab === 'details') {
+        <div class="details">
+          <p>{{ product.description }}</p>
+        </div>
+      }
+      @if (activeTab === 'reviews') {
+        <div class="reviews">
+          @for (review of product.reviews; track review) {
+            <div class="review">
+              <p>{{ review.reviewerName }}: {{ review.rating }} Star</p>
+              <p>{{ review.comment }}</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  
+    @if (reviewModalVisible) {
+      <div class="modal">
+        <div class="modal-content">
+          <h3>Rate</h3>
+          <form (ngSubmit)="submitReview()">
+            <label>Rating (1-5):</label>
+            <input type="number" [(ngModel)]="reviewForm.rating" name="rating" min="1" max="5" required>
+            <label>Comments</label>
+            <textarea [(ngModel)]="reviewForm.comment" name="comment" required></textarea>
+            <label>Your name:</label>
+            <input type="text" [(ngModel)]="reviewForm.reviewerName" name="reviewerName" required>
+            <button type="submit">Send</button>
+            <button type="button" (click)="closeReviewModal()">Cnacel</button>
+          </form>
+        </div>
+      </div>
+    }
+  }

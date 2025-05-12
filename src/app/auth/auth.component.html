@@ -1,0 +1,29 @@
+<section class="auth-container">
+  @if (isLoginView) {
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="password" placeholder="Password">
+      <button type="submit" [disabled]="loginForm.invalid">Enter</button>
+      <button type="button" (click)="toggleView()">Go to registration</button>
+    </form>
+  } @else {
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <input type="text" formControlName="firstName" placeholder="სახელი">
+      <input type="text" formControlName="lastName" placeholder="გვარი">
+      <input type="number" formControlName="age" placeholder="ასაკი">
+      <input type="email" formControlName="email" placeholder="Email">
+      <input type="password" formControlName="password" placeholder="პაროლი">
+      <input type="text" formControlName="address" placeholder="მისამართი">
+      <input type="text" formControlName="phone" placeholder="ტელ. ნომერი">
+      <input type="text" formControlName="zipcode" placeholder="პოჩტური ინდექსი">
+      <input type="text" formControlName="avatar" placeholder="ავატარის URL">
+      <select formControlName="gender">
+        <option value="MALE">მამრობითი</option>
+        <option value="FEMALE">მდედრობითი</option>
+        <option value="OTHER">სხვა</option>
+      </select>
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      <button type="button" (click)="toggleView()">Go to enter</button>
+    </form>
+  }
+</section>

@@ -1,0 +1,53 @@
+<section class="profile-container">
+  @if (service.userData) {
+    <div class="profile-card">
+      <h2>Your profile:</h2>
+      <div class="profile-info">
+        <div class="info-item">
+          <span class="label">Name:</span>
+          <span class="value">{{ service.userData.firstName }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Surname:</span>
+          <span class="value">{{ service.userData.lastName }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Age:</span>
+          <span class="value">{{ service.userData.age }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Email:</span>
+          <span class="value">{{ service.userData.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone:</span>
+          <span class="value">{{ service.userData.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Adress:</span>
+          <span class="value">{{ service.userData.address }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Gnail index:</span>
+          <span class="value">{{ service.userData.zipcode }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Gender:</span>
+          <span class="value">{{ service.userData.gender }}</span>
+        </div>
+        @if (service.userData.avatar) {
+          <div class="info-item">
+            <span class="label">Avatar:</span>
+            <img [src]="service.userData.avatar" alt="Аватар" class="avatar">
+          </div>
+        }
+      </div>
+      <div class="button-group">
+        <button (click)="goBack()" class="back-btn">Back</button>
+        <button (click)="service.logout()" class="logout-btn">Sign out</button>
+      </div>
+    </div>
+  } @else {
+    <p>Please enter in system to look your profile </p>
+  }
+</section>

@@ -1,0 +1,15 @@
+<div class="cart">
+    <h2>cart</h2>
+    @for (item of cartItems; track item) {
+      <div class="cart-item">
+        <img [src]="item.product.images" alt="{{ item.product.title }}">
+        <p>{{ item.product.title }}</p>
+        <p>Price: {{ item.price }}$</p>
+        <p>Quantity: <input type="number" [(ngModel)]="item.quantity" (change)="updateQuantity(item, item.quantity)" name="quantity_{{item.id}}" min="1"></p>
+        <button (click)="removeItem(item.id)">delete</button>
+      </div>
+    } @empty {
+      <p> The cart is empty..</p>
+    }
+    <p>Total price: {{ totalPrice }}$</p>
+  </div>

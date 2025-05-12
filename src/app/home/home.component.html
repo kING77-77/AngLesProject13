@@ -1,0 +1,66 @@
+@if (service.userData) {
+  <div class="filter-container">
+    <div class="filter-group">
+      <label for="category">Category</label>
+      <select id="category" [(ngModel)]="filters.category" (change)="applyFilters()">
+        <option value="">All categories</option>
+        @for (category of service.categories; track category) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="brand">Brand:</label>
+      <select id="brand" [(ngModel)]="filters.brand" (change)="applyFilters()">
+        <option value="">All brands</option>
+        @for (brand of service.brands; track brand) {
+          <option [value]="brand">{{ brand }}</option>
+        }
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="minPrice">Price from:</label>
+      <input type="number" id="minPrice" [(ngModel)]="filters.minPrice" (input)="applyFilters()" placeholder="Мин. цена">
+    </div>
+    <div class="filter-group">
+      <label for="maxPrice">Price to:</label>
+      <input type="number" id="maxPrice" [(ngModel)]="filters.maxPrice" (input)="applyFilters()" placeholder="Макс. цена">
+    </div>
+    <div class="filter-group">
+      <label for="rating">Rating:</label>
+      <input type="number" id="rating" [(ngModel)]="filters.rating" (input)="applyFilters()" placeholder="Рейтинг (1-5)" min="1" max="5">
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button (click)="goToProfile()" class="profile-btn">Profile</button>
+    <button (click)="service.logout()" class="logout-btn">Exit</button>
+  </div>
+}
+
+
+<input type="text" [(ngModel)]="service.keyword" placeholder="Поиск..." (input)="applyFilters()">
+
+@if (service.isLoading) {
+  <p>Loading...</p>
+}
+@if (!service.userData && !service.isLoading) {
+  <p>Please enter to system for showing products</p>
+}
+@if (service.userData && !service.isLoading) {
+  <div class="main-card">
+  <section class="cards">
+    @for (item of service.products; track $index) {
+      <div class="card" style="width: 18rem;">
+        <img [src]="item.images" class="card-img-top" alt="{{ item.title }}">
+        <div class="card-body">
+          <h5 class="card-title" (click)="goToProductDetail(item.id)">{{ item.title }}</h5>
+          <h2>{{ item.price.beforeDiscount }}$</h2>
+          <button (click)="addToCart(item.id)" class="btn btn-primary">Add to cart</button>
+        </div>
+      </div>
+
+    }
+  </section> 
+   </div>
+}
